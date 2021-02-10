@@ -1,5 +1,5 @@
-import { Observable, Subject, NEVER, timer } from 'rxjs';
-import { switchMap, timeInterval, map } from 'rxjs/operators';
+import { Subject, NEVER, timer } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 const pauser = new Subject();
 
@@ -19,12 +19,5 @@ setTimeout(() => {
 }, 3000);
 
 function source() {
-  return new Observable((observer) => {
-    timer(0, 1000)
-      .pipe(
-        timeInterval(),
-        map(() => observer.next(new Date()))
-      )
-      .subscribe();
-  });
+  return timer(0, 1000).pipe(map(() => new Date()));
 }
